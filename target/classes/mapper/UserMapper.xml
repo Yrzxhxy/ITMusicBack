@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.UserMapper">
+    <resultMap id="userInfo" type="com.javaclimb.itmusic.pojo.vo.UserVO">
+        <result property="id" column="id"/>
+        <result property="phoneNum" column="phone_num"/>
+        <result property="nickName" column="nick_num"/>
+    </resultMap>
+    <insert id="addUser">
+        insert into consumer(username,password)
+        values (#{userName},#{passWord})
+    </insert>
+    <update id="updateUserInfo">
+        update consumer
+        <set>
+            <if test="nickName!=null and nickName!=''">
+                nick_name=#{nickName},
+            </if>
+            <if test="sex!=null">
+                sex=#{sex},
+            </if>
+            <if test="phoneNum!=null and phoneNum!=''" >
+                phone_num=#{phoneNum},
+            </if>
+            <if test="email!=null and email!=''" >
+                email=#{email},
+            </if>
+            <if test="birth!=null and birth!=''" >
+                birth=#{birth},
+            </if>
+            <if test="location!=null and location!=''" >
+                location=#{location},
+            </if>
+            <if test="introduction!=null and introduction!=''" >
+                introduction=#{introduction},
+            </if>
+            <if test="avator!=null and avator!=''" >
+                avator=#{avator}
+            </if>
+        </set>
+            where id=#{id}
+
+    </update>
+    <select id="userLogin" resultType="java.lang.Integer" >
+    select id from consumer where username=#{userName} and password=#{passWord}
+    </select>
+    <select id="selectInfo" resultType="com.javaclimb.itmusic.pojo.vo.UserVO" resultMap="userInfo">
+        select * from consumer where id=#{userId}
+    </select>
+</mapper>

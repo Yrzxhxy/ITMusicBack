@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.SearchMapper">
+
+    <select id="searchSinger" resultType="com.javaclimb.itmusic.pojo.vo.SingerVO">
+        SELECT * FROM singer WHERE name LIKE CONCAT('%', #{keywords}, '%')
+    </select>
+    <select id="searchSongs" resultType="com.javaclimb.itmusic.pojo.vo.SongVO">
+        SELECT * FROM song WHERE name LIKE CONCAT('%', #{keywords}, '%')
+    </select>
+</mapper>

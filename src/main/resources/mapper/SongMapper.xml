@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.SongMapper">
+<!--    与数据库映射-->
+    <resultMap id="SongResultMap" type="com.javaclimb.itmusic.pojo.domain.Song">
+        <result property="singerId" column="singer_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="addSong" >
+              insert into song(singer_id,name,introduction,pic,lyric,url)
+              values (#{singerId},#{name},#{introduction},#{pic},#{lyric},#{url})
+    </insert>
+    <update id="updateSong">
+        update song
+        <set>
+            <if test="singerId!=null">
+                singer_id=#{singerId},
+            </if>
+            <if test="name!=null and name!=''" >
+                name=#{name},
+            </if>
+            <if test="pic!=null and pic!=''" >
+                pic=#{pic},
+            </if>
+            <if test="lynic!=null and lynic!=''" >
+                lynic=#{lynic},
+            </if>
+            <if test="url!=null and url!=''" >
+                url=#{url},
+            </if>
+            <if test="introduction!=null and introduction!=''" >
+                introduction=#{introduction}
+            </if>
+        </set>
+        where id=#{id};
+    </update>
+    <select id="Songlist" resultType="com.javaclimb.itmusic.pojo.vo.SongVO" resultMap="SongResultMap">
+        select * from song limit #{startIndex}, #{size}
+    </select>
+    <select id="SongListById" resultType="com.javaclimb.itmusic.pojo.vo.SongVO" resultMap="SongResultMap">
+        select * from song  where singer_id=#{singerId} limit #{startIndex},#{size}
+    </select>
+</mapper>

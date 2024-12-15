@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.UserSongListMapper">
+
+    <select id="getSongList" resultType="com.javaclimb.itmusic.pojo.vo.SongListVO">
+    select * from song_list limit #{startIndex},#{size}
+    </select>
+    <resultMap id="SongListWithSongs" type="com.javaclimb.itmusic.pojo.vo.ListSongVO">
+        <id property="songListId" column="id"/>
+        <collection property="songList" ofType="com.javaclimb.itmusic.pojo.vo.SongVO" column="id" select="selectSongsBySongListId">
+        </collection>
+    </resultMap>
+    <insert id="addSongToList" useGeneratedKeys="true">
+        insert into  list_Song (song_id,song_list_id)
+        values (#{songId},#{listId})
+    </insert>
+    <!--    依据歌单id查询歌单内的歌曲及其信息-->
+    <select id="selectSongsBySongListId" resultType="com.javaclimb.itmusic.pojo.vo.SongVO">
+        select * from song s join list_song ls on s.id = ls. song_id where ls.song_list_id=#{songListId}
+    </select>
+    <select id="getListSong" resultMap="SongListWithSongs">
+        select *  from song_list where id=#{songListId}
+
+    </select>
+</mapper>

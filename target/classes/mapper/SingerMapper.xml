@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.SingerMapper">
+
+
+    <insert id="insert" useGeneratedKeys="true" >
+        insert into singer (name,sex,pic,birth,location,introduction)
+        values (#{name},#{sex},#{pic},#{birth},#{location},#{introduction});
+    </insert>
+    <update id="update" >
+        update singer
+            <set>
+                <if test="name!=null and name!=''" >
+                    name=#{name},
+                </if>
+                <if test="sex!=null and sex!=''" >
+                    sex=#{sex},
+                </if>
+                <if test="pic!=null and pic!=''" >
+                    pic=#{pic},
+                </if>
+                <if test="birth!=null and birth!=''" >
+                    birth=#{birth},
+                </if>
+                <if test="location!=null and location!=''" >
+                    location=#{location},
+                </if>
+                <if test="introduction!=null and introduction!=''" >
+                    introduction=#{introduction}
+                </if>
+            </set>
+            where id=#{id};
+    </update>
+    <delete id="delete">
+        delete from singer
+        where id
+        in (
+        <foreach collection="ids" item="id" separator=",">
+            #{id}
+        </foreach>
+        )
+    </delete>
+
+    <select id="selecte" resultType="com.javaclimb.itmusic.pojo.domain.Singer">
+        select * from singer WHERE id=#{id}
+    </select>
+    <select id="selectPage" resultType="com.javaclimb.itmusic.pojo.vo.SingerVO">
+        select * from singer limit #{startIndex}, #{page}
+
+    </select>
+</mapper>

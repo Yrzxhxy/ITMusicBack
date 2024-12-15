@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.AdminMapper">
+    <insert id="registAdmin" >
+        insert into admin ()
+        values ()
+    </insert>
+    <!--    <resultMap id="BaseResultMap" type="com.javaclimb.itmusic.pojo.domain.Admin">-->
+<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+<!--        <result column="name" jdbcType="VARCHAR" property="name"/>-->
+<!--        <result column="password" jdbcType="VARCHAR" property="password"/>-->
+<!--    </resultMap>-->
+<!--statement-->
+    <select id="verifyPassword" resultType="Admin">
+        select * from admin where name=#{name} and password=#{password};
+    </select>
+</mapper>

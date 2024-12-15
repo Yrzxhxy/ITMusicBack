@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclimb.itmusic.dao.SongListMapper">
+
+    <insert id="createSongList" useGeneratedKeys="true">
+        insert into song_list (title,pic,introduc,style)
+        values (#{title},#{pic},#{introduc},#{style})
+    </insert>
+    <update id="updateSongList">
+        update song_list
+        <set>
+            <if test="title!=null and title!=''">
+                title=#{title}
+            </if>
+            <if test="pic!=null and pic!=''">
+                pic=#{pic}
+            </if>
+            <if test="introduc!=null and introduc!=''">
+            introduc=#{introduc}
+            </if>
+            <if test="style!=null and style!=''">
+                style=#{style}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>
